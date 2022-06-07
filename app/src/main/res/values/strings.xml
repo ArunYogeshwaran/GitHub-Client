@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Github Client</string>
+    <string name="show_closed_pull_requests">Show Closed Pull Requests</string>
 </resources>
