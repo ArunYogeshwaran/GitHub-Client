@@ -1,7 +1,16 @@
+buildscript {
+    dependencies {
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdk 31
@@ -35,6 +44,7 @@ android {
 }
 
 def retrofitVersion = "2.9.0"
+def daggerHiltVersion = '2.42'
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
@@ -46,6 +56,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+    //Hilt for di
+    implementation "com.google.dagger:hilt-android:$daggerHiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$daggerHiltVersion"
 
     testImplementation 'junit:junit:4.13.2'
 

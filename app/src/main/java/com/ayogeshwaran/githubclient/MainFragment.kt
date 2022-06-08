@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.ayogeshwaran.githubclient.closedpr.MainActivityViewModel
 import com.ayogeshwaran.githubclient.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
