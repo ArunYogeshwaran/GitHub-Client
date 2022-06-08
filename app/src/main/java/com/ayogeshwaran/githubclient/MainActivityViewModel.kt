@@ -1,4 +1,4 @@
-package com.ayogeshwaran.githubclient.closedpr
+package com.ayogeshwaran.githubclient
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
