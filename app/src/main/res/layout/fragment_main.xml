@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ayogeshwaran.githubclient.MainActivityViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/csl_fragment_main_root"
         android:layout_width="match_parent"
@@ -13,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
             android:text="@string/show_closed_pull_requests"
+            android:onClick="@{() -> viewmodel.showClosedPr()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
