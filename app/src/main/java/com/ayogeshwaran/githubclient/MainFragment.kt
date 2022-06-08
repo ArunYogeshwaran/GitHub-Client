@@ -20,13 +20,8 @@ class MainFragment : Fragment() {
     ): View {
         fragmentMainBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        fragmentMainBinding.viewmodel = mainActivityViewModel
+        fragmentMainBinding.lifecycleOwner = this
         return fragmentMainBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        fragmentMainBinding.btnShowClosedPrs.setOnClickListener {
-            mainActivityViewModel.showClosedPr()
-        }
     }
 }
