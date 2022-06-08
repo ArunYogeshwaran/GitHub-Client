@@ -1,4 +1,4 @@
-package com.ayogeshwaran.githubclient.closedpr
+package com.ayogeshwaran.githubclient.closedpr.usecase
 
 import android.os.Bundle
 import android.view.LayoutInflater

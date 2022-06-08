@@ -1,4 +1,4 @@
-package com.ayogeshwaran.githubclient
+package com.ayogeshwaran.githubclient.common
 
 object Constants {
     const val BASE_URL = "https://api.github.com/"
