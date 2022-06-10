@@ -1,5 +1,6 @@
-package com.ayogeshwaran.githubclient.network.response.prresponse.github
+import com.google.gson.annotations.SerializedName
 
 data class ReviewComments(
-    val href: String
+
+	@SerializedName("href") val href: String
 )
