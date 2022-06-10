@@ -1,6 +1,8 @@
 package com.ayogeshwaran.githubclient.datasource.pr
 
+import GithubPrResponse
 import com.ayogeshwaran.githubclient.network.GitHubApiService
+import retrofit2.Response
 import javax.inject.Inject
 
 class GithubPullRequestDataSource @Inject constructor(
@@ -10,10 +12,18 @@ class GithubPullRequestDataSource @Inject constructor(
         userId: String,
         repoId: String
     ): List<PullRequestModel> {
-        val response = gitHubApiService.getPullRequests(
+        val response: Response<List<GithubPrResponse>> = this.gitHubApiService.getPullRequests(
             userId = userId, repoId = repoId, state = GitHubPullRequestState.CLOSED.state
         )
-        return emptyList()
+        return response.body()?.map {
+            PullRequestModel(
+                it.title,
+                it.created_at,
+                it.closed_at,
+                it.user.login,
+                it.user.avatar_url
+            )
+        } ?: emptyList()
     }
 }
 

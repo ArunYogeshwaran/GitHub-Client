@@ -1,9 +1,10 @@
-package com.ayogeshwaran.githubclient.network.response.prresponse.github
+import com.google.gson.annotations.SerializedName
 
 data class Head(
-    val label: String,
-    val ref: String,
-    val repo: RepoX,
-    val sha: String,
-    val user: UserX
+
+    @SerializedName("label") val label: String,
+    @SerializedName("ref") val ref: String,
+    @SerializedName("sha") val sha: String,
+    @SerializedName("user") val user: User,
+    @SerializedName("repo") val repo: Repo
 )

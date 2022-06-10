@@ -1,9 +1,10 @@
-package com.ayogeshwaran.githubclient.network.response.prresponse.github
+import com.google.gson.annotations.SerializedName
 
 data class License(
-    val key: String,
-    val name: String,
-    val node_id: String,
-    val spdx_id: String,
-    val url: String
+
+    @SerializedName("key") val key: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("spdx_id") val spdx_id: String,
+    @SerializedName("url") val url: String,
+    @SerializedName("node_id") val node_id: String
 )
