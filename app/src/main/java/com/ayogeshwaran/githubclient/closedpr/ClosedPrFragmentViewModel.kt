@@ -29,7 +29,7 @@ class ClosedPrFragmentViewModel @Inject constructor(
                     it.closedDate,
                     it.userName,
                     it.userImageUrl,
-                    ""
+                    it.pullRequestUrl
                 )
             }
             _closedPrsList.postValue(uiList)

@@ -24,7 +24,8 @@ class GithubPullRequestDataSource @Inject constructor(
                     it.created_at,
                     it.closed_at,
                     it.user.login,
-                    it.user.avatar_url
+                    it.user.avatar_url,
+                    it.html_url
                 )
             } ?: emptyList()
         }

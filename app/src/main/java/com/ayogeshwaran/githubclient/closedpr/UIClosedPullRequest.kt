@@ -1,7 +1,9 @@
 package com.ayogeshwaran.githubclient.closedpr
 
 /**
- * Model to represent the UI.
+ * Model to represent the UI.\
+ *
+ * Dates are in ISO 8601 format.
  */
 data class UIClosedPullRequest(
     val title: String,

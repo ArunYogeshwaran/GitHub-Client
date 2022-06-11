@@ -1,7 +1,7 @@
 package com.ayogeshwaran.githubclient.network
 
 /**
- * This class is a generic sealed class with the possible response types.
+ * This class is a generic sealed class with the possible result types.
  */
 sealed class NetworkResult<T>(
     val data: T? = null,
