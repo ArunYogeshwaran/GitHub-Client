@@ -4,5 +4,7 @@
     <string name="pr_subtitle" translatable="false">%1$s \u2022 %2$s</string>
     <string name="closed_pull_requests">Closed Pull Requests</string>
     <string name="loading">Loading</string>
-    <string name="closed_pr_request_failed">Error while fetching closed pull requests. Please try again later.</string>
+    <string name="closed_pr_request_failed">Error while fetching data.</string>
+    <string name="closed_pr_request_nodata">No closed pull requests.</string>
+    <string name="retry">Retry</string>
 </resources>
