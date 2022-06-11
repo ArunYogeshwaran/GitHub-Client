@@ -21,7 +21,7 @@ object NetworkModule {
     @Provides
     fun provideHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
         return OkHttpClient
             .Builder()
             .addInterceptor(loggingInterceptor)

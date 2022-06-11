@@ -36,15 +36,37 @@ class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = setUpAdapter()
-        closedPrFragmentViewModel.closedPrsList.observe(viewLifecycleOwner) {
+        closedPrFragmentViewModel.closedPrUiState.observe(viewLifecycleOwner) {
             closedPrBinding.swipeRefresh.isRefreshing = false
-            adapter.updateListData(it)
+            handleUiState(it, adapter)
         }
         closedPrBinding.swipeRefresh.setOnRefreshListener {
             closedPrFragmentViewModel.getClosedPrs()
         }
 
         closedPrFragmentViewModel.getClosedPrs()
+    }
+
+    private fun handleUiState(uiState: UiState<Any>?, adapter: ClosedPrListAdapter) {
+        uiState?.let { state ->
+            when (state) {
+                is UiState.Success -> {
+                    closedPrBinding.progressBar.visibility = View.GONE
+                    adapter.updateListData(state.data as List<UIClosedPullRequest>)
+                }
+                is UiState.Loading -> {
+                    closedPrBinding.progressBar.visibility = View.VISIBLE
+                }
+                is UiState.Error -> {
+
+                }
+                is UiState.NoData -> {
+
+                }
+            }
+        } ?: run {
+            closedPrBinding.progressBar.visibility = View.GONE
+        }
     }
 
     private fun setUpAdapter(): ClosedPrListAdapter {
@@ -62,12 +84,6 @@ class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener
         return adapter
     }
 
-    companion object {
-        fun newInstance(): ClosedPrFragment {
-            return ClosedPrFragment()
-        }
-    }
-
     override fun onItemClicked(uiClosedPullRequest: UIClosedPullRequest) {
         startActivity(
             Intent(
@@ -75,5 +91,11 @@ class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener
                 Uri.parse(uiClosedPullRequest.pullRequestUrl)
             )
         )
+    }
+
+    companion object {
+        fun newInstance(): ClosedPrFragment {
+            return ClosedPrFragment()
+        }
     }
 }

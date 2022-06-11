@@ -5,11 +5,11 @@ package com.ayogeshwaran.githubclient.network
  */
 sealed class NetworkResult<T>(
     val data: T? = null,
-    val message: String? = null
+    val message: Any? = null
 ) {
     class Success<T>(data: T) : NetworkResult<T>(data)
 
-    class Error<T>(message: String, data: T? = null) : NetworkResult<T>(data, message)
+    class Error<T>(errorCode: ErrorCode, data: T? = null) : NetworkResult<T>(data, errorCode)
 
     class Loading<T> : NetworkResult<T>()
 }

@@ -1,9 +1,11 @@
 package com.ayogeshwaran.githubclient.datasource.pr
 
+import com.ayogeshwaran.githubclient.network.NetworkResult
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import kotlinx.coroutines.flow.Flow
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -16,5 +18,5 @@ interface PullRequestDataSource {
     suspend fun getClosedPullRequests(
         userId: String,
         repoId: String
-    ): List<PullRequestModel>
+    ): Flow<NetworkResult<List<PullRequestModel>>>
 }
