@@ -6,4 +6,35 @@
         <item name="android:layout_height">0dp</item>
         <item name="android:overScrollMode">always</item>
     </style>
+
+    <style name="ClosedPrIconStyle">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="ContentTitleStyle">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/content_title_text_size</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ClosedPrTitleStyle" parent="ContentTitleStyle">
+        <item name="android:layout_marginEnd">@dimen/standard_margin</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <style name="ClosedPrSubtitleStyle">
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:textColor">?android:attr/textColorTertiary</item>
+        <item name="android:textSize">@dimen/content_subtitle_text_size</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="CircleImageStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

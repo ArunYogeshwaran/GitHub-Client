@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Github Client</string>
     <string name="show_closed_pull_requests">Show Closed Pull Requests</string>
+    <string name="pr_subtitle" translatable="false">%1$s \u2022 %2$s</string>
 </resources>

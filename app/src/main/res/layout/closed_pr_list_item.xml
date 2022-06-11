@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/pr_user_icon"
+            style="@style/ClosedPrIconStyle"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImageStyle" />
+
+        <TextView
+            android:id="@+id/pr_title"
+            style="@style/ClosedPrTitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/pr_user_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="PR Title PR Title PR Title PR Title PR Title to test for screen overflow" />
+
+        <TextView
+            android:id="@+id/pr_subtitle"
+            style="@style/ClosedPrSubtitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin"
+            app:drawableEndCompat="@drawable/ic_open"
+            app:layout_constraintStart_toStartOf="@+id/pr_title"
+            app:layout_constraintTop_toBottomOf="@+id/pr_title"
+            tools:text="PR Subtitle" />
+
+        <TextView
+            android:id="@+id/pr_closed_date"
+            style="@style/ClosedPrSubtitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:drawablePadding="@dimen/drawable_end_padding"
+            app:drawableEndCompat="@drawable/ic_check_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/pr_subtitle"
+            app:layout_constraintTop_toBottomOf="@+id/pr_subtitle"
+            tools:text="PR closed date" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

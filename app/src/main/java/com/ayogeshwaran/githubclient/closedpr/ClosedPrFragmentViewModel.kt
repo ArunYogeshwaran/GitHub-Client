@@ -2,6 +2,8 @@ package com.ayogeshwaran.githubclient.closedpr
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ayogeshwaran.githubclient.closedpr.usecase.ClosedPrUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,10 +16,23 @@ class ClosedPrFragmentViewModel @Inject constructor(
     private val closedPrUseCase: ClosedPrUseCase,
     app: Application
 ) : AndroidViewModel(app) {
+    private val _closedPrsList = MutableLiveData<List<UIClosedPullRequest>>(emptyList())
+    val closedPrsList: LiveData<List<UIClosedPullRequest>> = _closedPrsList
+
     fun getClosedPrs() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = closedPrUseCase.getClosedPullRequests()
-            print(result)
+            val pullRequestsList = closedPrUseCase.getClosedPullRequests()
+            val uiList = pullRequestsList.map {
+                UIClosedPullRequest(
+                    it.title,
+                    it.createdDate,
+                    it.closedDate,
+                    it.userName,
+                    it.userImageUrl,
+                    ""
+                )
+            }
+            _closedPrsList.postValue(uiList)
         }
     }
 }
