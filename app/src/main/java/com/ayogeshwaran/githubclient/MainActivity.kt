@@ -3,7 +3,6 @@ package com.ayogeshwaran.githubclient
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.ayogeshwaran.githubclient.closedpr.ClosedPrFragment
 import com.ayogeshwaran.githubclient.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,16 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
-        observeShowPrClick()
+        observeActionBarTitle()
     }
 
-    private fun observeShowPrClick() {
-        mainActivityViewModel.closedPrClicked.observe(this) {
-            val closedPrFragment = ClosedPrFragment.newInstance()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fcv_activity_main, closedPrFragment)
-                .addToBackStack(null)
-                .commit()
+    private fun observeActionBarTitle() {
+        mainActivityViewModel.actionBarTitle.observe(this) {
+            supportActionBar?.title = it
         }
     }
 }

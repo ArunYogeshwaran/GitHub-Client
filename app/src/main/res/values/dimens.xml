@@ -2,8 +2,6 @@
 <resources>
     <dimen name="standard_margin">8dp</dimen>
     <dimen name="medium_margin">8dp</dimen>
-    <dimen name="card_view_elevation">4dp</dimen>
-    <dimen name="card_view_corner_radius">4dp</dimen>
     <dimen name="rv_item_margin">16dp</dimen>
     <dimen name="icon_size">44dp</dimen>
     <dimen name="content_title_text_size">16sp</dimen>
