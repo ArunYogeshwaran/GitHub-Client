@@ -25,6 +25,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", '"https://api.github.com/"'
+
+        buildConfigField "String", "USER_ID", '"ArunYogeshwaran"'
+        buildConfigField "String", "REPO_ID", '"GitHub-Client"'
+
     }
 
     buildTypes {

@@ -1,11 +1,11 @@
 package com.ayogeshwaran.githubclient.datasource.pr
 
 import com.ayogeshwaran.githubclient.mappers.PullRequestRemoteMapper
+import com.ayogeshwaran.githubclient.network.ErrorCode
 import com.ayogeshwaran.githubclient.network.GitHubApiService
-import com.ayogeshwaran.githubclient.network.response.prresponse.github.GithubPrResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Response
+import com.ayogeshwaran.githubclient.network.NetworkResult
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GithubPullRequestDataSource @Inject constructor(
@@ -15,19 +15,24 @@ class GithubPullRequestDataSource @Inject constructor(
     override suspend fun getClosedPullRequests(
         userId: String,
         repoId: String
-    ): List<PullRequestModel> {
-        return withContext(Dispatchers.IO) {
-            val response: Response<List<GithubPrResponse>> = gitHubApiService.getPullRequests(
+    ): Flow<NetworkResult<List<PullRequestModel>>> {
+        return flow {
+            emit(NetworkResult.Loading())
+
+            val response = gitHubApiService.getPullRequests(
                 userId = userId, repoId = repoId, state = GitHubPullRequestState.CLOSED.state
             )
+
             if (response.isSuccessful) {
-                response.body()?.let {
+                val body = response.body()
+                val list = body?.let {
                     it.map { response ->
                         domainMapper.map(response)
                     }
                 } ?: emptyList()
+                emit(NetworkResult.Success(list))
             } else {
-                emptyList()
+                emit(NetworkResult.Error(ErrorCode.REQUEST_FAILED))
             }
         }
     }
