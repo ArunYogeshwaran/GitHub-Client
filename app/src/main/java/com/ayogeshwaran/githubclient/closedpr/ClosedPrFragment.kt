@@ -16,6 +16,7 @@ import com.ayogeshwaran.githubclient.MainActivityViewModel
 import com.ayogeshwaran.githubclient.R
 import com.ayogeshwaran.githubclient.common.MarginItemDecoration
 import com.ayogeshwaran.githubclient.databinding.FragmentClosedPrBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
@@ -58,21 +59,33 @@ class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener
         uiState?.let { state ->
             when (state) {
                 is UiState.Success -> {
-                    closedPrBinding.progressBar.visibility = View.GONE
+                    closedPrBinding.swipeRefresh.isRefreshing = false
                     adapter.updateListData(state.data as List<UIClosedPullRequest>)
                 }
                 is UiState.Loading -> {
-                    closedPrBinding.progressBar.visibility = View.VISIBLE
+                    closedPrBinding.swipeRefresh.isRefreshing = true
                 }
                 is UiState.Error -> {
-
+                    closedPrBinding.swipeRefresh.isRefreshing = false
+                    Snackbar.make(
+                        closedPrBinding.root,
+                        getString(state.errorMessageId),
+                        Snackbar.LENGTH_LONG
+                    ).setAction(getString(R.string.retry)) {
+                        closedPrFragmentViewModel.getClosedPrs()
+                    }.show()
                 }
                 is UiState.NoData -> {
-
+                    closedPrBinding.swipeRefresh.isRefreshing = false
+                    Snackbar.make(
+                        closedPrBinding.root,
+                        getString(R.string.closed_pr_request_nodata),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         } ?: run {
-            closedPrBinding.progressBar.visibility = View.GONE
+            closedPrBinding.swipeRefresh.isRefreshing = true
         }
     }
 
