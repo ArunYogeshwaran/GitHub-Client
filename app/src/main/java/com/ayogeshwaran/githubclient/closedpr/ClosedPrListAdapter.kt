@@ -6,22 +6,28 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ayogeshwaran.githubclient.R
+import com.ayogeshwaran.githubclient.common.DateUtils.ISO_TIME_FORMAT
 import com.ayogeshwaran.githubclient.common.DateUtils.getFormattedDate
 import com.ayogeshwaran.githubclient.databinding.ClosedPrListItemBinding
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ClosedPrListAdapter(val fragment: Fragment) :
+class ClosedPrListAdapter(fragment: Fragment) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var dataList = ArrayList<UIClosedPullRequest>()
+    private var prList = ArrayList<UIClosedPullRequest>()
+    private var onPrItemClickedListener: OnPrItemClickedListener? = null
+
+    init {
+        onPrItemClickedListener = fragment as? OnPrItemClickedListener
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateListData(
         dataList: List<UIClosedPullRequest>
     ) {
-        this.dataList.clear()
-        this.dataList.addAll(dataList)
+        this.prList.clear()
+        this.prList.addAll(dataList)
         notifyDataSetChanged()
     }
 
@@ -36,19 +42,28 @@ class ClosedPrListAdapter(val fragment: Fragment) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ClosedPrItemViewHolder) {
-            holder.bind(dataList[position])
+            holder.bind(prList[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return prList.size
     }
 
     inner class ClosedPrItemViewHolder(private val binding: ClosedPrListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(uiClosedPullRequest: UIClosedPullRequest) {
             binding.prTitle.text = uiClosedPullRequest.title
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            setSubtitle(uiClosedPullRequest)
+            Glide.with(binding.root.context).load(uiClosedPullRequest.userImageUrl)
+                .into(binding.prUserIcon)
+            binding.root.setOnClickListener {
+                onPrItemClickedListener?.onItemClicked(uiClosedPullRequest)
+            }
+        }
+
+        private fun setSubtitle(uiClosedPullRequest: UIClosedPullRequest) {
+            val date = SimpleDateFormat(ISO_TIME_FORMAT, Locale.getDefault())
             date.parse(uiClosedPullRequest.createdDate)?.let {
                 binding.prSubtitle.text = binding.root.context.getString(
                     R.string.pr_subtitle,
@@ -56,11 +71,13 @@ class ClosedPrListAdapter(val fragment: Fragment) :
                     getFormattedDate(it)
                 )
             }
-            (date.parse(uiClosedPullRequest.closedDate))?.let {
+            date.parse(uiClosedPullRequest.closedDate)?.let {
                 binding.prClosedDate.text = getFormattedDate(it)
             }
-            Glide.with(binding.root.context).load(uiClosedPullRequest.userImageUrl)
-                .into(binding.prUserIcon)
         }
+    }
+
+    interface OnPrItemClickedListener {
+        fun onItemClicked(uiClosedPullRequest: UIClosedPullRequest)
     }
 }

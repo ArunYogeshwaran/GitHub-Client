@@ -9,6 +9,7 @@ import java.util.Date
 import java.util.Locale
 
 object DateUtils {
+    const val ISO_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     private const val MONTH_DATE_FORMAT = "MMM d"
     private const val ONLY_YEAR = "yyyy"
 

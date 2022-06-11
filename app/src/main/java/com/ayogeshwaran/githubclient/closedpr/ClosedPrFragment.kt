@@ -1,5 +1,7 @@
 package com.ayogeshwaran.githubclient.closedpr
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +17,9 @@ import com.ayogeshwaran.githubclient.databinding.FragmentClosedPrBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
+
 @AndroidEntryPoint
-class ClosedPrFragment : Fragment() {
+class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener {
     private val closedPrFragmentViewModel by viewModels<ClosedPrFragmentViewModel>()
     private lateinit var closedPrBinding: FragmentClosedPrBinding
 
@@ -58,5 +61,14 @@ class ClosedPrFragment : Fragment() {
         fun newInstance(): ClosedPrFragment {
             return ClosedPrFragment()
         }
+    }
+
+    override fun onItemClicked(uiClosedPullRequest: UIClosedPullRequest) {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(uiClosedPullRequest.pullRequestUrl)
+            )
+        )
     }
 }
