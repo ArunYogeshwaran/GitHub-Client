@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/pr_subtitle"
             style="@style/ClosedPrSubtitleStyle"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin"
             app:drawableEndCompat="@drawable/ic_open"

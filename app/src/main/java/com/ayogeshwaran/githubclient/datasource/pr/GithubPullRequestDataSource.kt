@@ -1,14 +1,16 @@
 package com.ayogeshwaran.githubclient.datasource.pr
 
-import GithubPrResponse
+import com.ayogeshwaran.githubclient.mappers.PullRequestRemoteMapper
 import com.ayogeshwaran.githubclient.network.GitHubApiService
+import com.ayogeshwaran.githubclient.network.response.prresponse.github.GithubPrResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
 class GithubPullRequestDataSource @Inject constructor(
-    private val gitHubApiService: GitHubApiService
+    private val gitHubApiService: GitHubApiService,
+    private val domainMapper: PullRequestRemoteMapper
 ) : PullRequestDataSource {
     override suspend fun getClosedPullRequests(
         userId: String,
@@ -18,16 +20,15 @@ class GithubPullRequestDataSource @Inject constructor(
             val response: Response<List<GithubPrResponse>> = gitHubApiService.getPullRequests(
                 userId = userId, repoId = repoId, state = GitHubPullRequestState.CLOSED.state
             )
-            response.body()?.map {
-                PullRequestModel(
-                    it.title,
-                    it.created_at,
-                    it.closed_at,
-                    it.user.login,
-                    it.user.avatar_url,
-                    it.html_url
-                )
-            } ?: emptyList()
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    it.map { response ->
+                        domainMapper.map(response)
+                    }
+                } ?: emptyList()
+            } else {
+                emptyList()
+            }
         }
     }
 }

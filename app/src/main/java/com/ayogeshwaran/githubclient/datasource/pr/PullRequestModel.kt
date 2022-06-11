@@ -6,5 +6,8 @@ data class PullRequestModel(
     val closedDate: String,
     val userName: String,
     val userImageUrl: String,
-    val pullRequestUrl: String
+    val pullRequestUrl: String,
+    val commitsUrl: String,
+    val reviewCommentsUrl: String,
+    val commentsUrl: String
 )

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ayogeshwaran.githubclient.closedpr.usecase.ClosedPrUseCase
+import com.ayogeshwaran.githubclient.mappers.UIPullRequestMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ClosedPrFragmentViewModel @Inject constructor(
     private val closedPrUseCase: ClosedPrUseCase,
+    private val uiPullRequestMapper: UIPullRequestMapper,
     app: Application
 ) : AndroidViewModel(app) {
     private val _closedPrsList = MutableLiveData<List<UIClosedPullRequest>>(emptyList())
@@ -23,14 +25,7 @@ class ClosedPrFragmentViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val pullRequestsList = closedPrUseCase.getClosedPullRequests()
             val uiList = pullRequestsList.map {
-                UIClosedPullRequest(
-                    it.title,
-                    it.createdDate,
-                    it.closedDate,
-                    it.userName,
-                    it.userImageUrl,
-                    it.pullRequestUrl
-                )
+                uiPullRequestMapper.map(it)
             }
             _closedPrsList.postValue(uiList)
         }
