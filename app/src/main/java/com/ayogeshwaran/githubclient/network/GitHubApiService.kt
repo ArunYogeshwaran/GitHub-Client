@@ -1,6 +1,6 @@
 package com.ayogeshwaran.githubclient.network
 
-import GithubPrResponse
+import com.ayogeshwaran.githubclient.network.response.prresponse.github.GithubPrResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
