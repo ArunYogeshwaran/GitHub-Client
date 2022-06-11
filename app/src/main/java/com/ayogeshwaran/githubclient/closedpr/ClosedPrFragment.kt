@@ -27,16 +27,21 @@ class ClosedPrFragment : Fragment() {
     ): View {
         closedPrBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_closed_pr, container, false)
-        return closedPrBinding.rvClosedPr
+        return closedPrBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = setUpAdapter()
-        closedPrFragmentViewModel.getClosedPrs()
         closedPrFragmentViewModel.closedPrsList.observe(viewLifecycleOwner) {
+            closedPrBinding.swipeRefresh.isRefreshing = false
             adapter.updateListData(it)
         }
+        closedPrBinding.swipeRefresh.setOnRefreshListener {
+            closedPrFragmentViewModel.getClosedPrs()
+        }
+
+        closedPrFragmentViewModel.getClosedPrs()
     }
 
     private fun setUpAdapter(): ClosedPrListAdapter {
