@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ayogeshwaran.githubclient.MainActivityViewModel
 import com.ayogeshwaran.githubclient.R
 import com.ayogeshwaran.githubclient.common.MarginItemDecoration
 import com.ayogeshwaran.githubclient.databinding.FragmentClosedPrBinding
@@ -21,6 +23,7 @@ import kotlin.math.roundToInt
 @AndroidEntryPoint
 class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener {
     private val closedPrFragmentViewModel by viewModels<ClosedPrFragmentViewModel>()
+    private val activityViewModel by activityViewModels<MainActivityViewModel>()
     private lateinit var closedPrBinding: FragmentClosedPrBinding
 
     override fun onCreateView(
@@ -35,11 +38,15 @@ class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activityViewModel.updateActionBarTitle(getString(R.string.closed_pull_requests))
+
         val adapter = setUpAdapter()
+
         closedPrFragmentViewModel.closedPrUiState.observe(viewLifecycleOwner) {
             closedPrBinding.swipeRefresh.isRefreshing = false
             handleUiState(it, adapter)
         }
+
         closedPrBinding.swipeRefresh.setOnRefreshListener {
             closedPrFragmentViewModel.getClosedPrs()
         }
