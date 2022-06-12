@@ -1,7 +1,15 @@
 ## MVVM Demo using a GitHub API
 
+**Update the following buildconfig fields in [app/build.gradle](build.gradle) to customize the
+Repository ID and User ID**
+
+- buildConfigField "String", "USER_ID", '"<Your preferred User ID>"'
+- buildConfigField "String", "REPO_ID", '"<Your preferred Repo ID>"'
+
+## Stacks
+
 [<img align="right" src="assets/demo.gif" width="40%">]()
-**This MVP version features:**
+**This demo features**
 
 - Gets the closed pull requests corresponding to a User ID and Repository ID specified in
   BuildConfigField in build.gradle
