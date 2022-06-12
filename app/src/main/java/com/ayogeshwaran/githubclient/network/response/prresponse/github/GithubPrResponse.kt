@@ -23,7 +23,7 @@ data class GithubPrResponse(
     @SerializedName("merge_commit_sha") val merge_commit_sha: String,
     @SerializedName("assignee") val assignee: String,
     @SerializedName("assignees") val assignees: List<String>,
-    @SerializedName("requested_reviewers") val requested_reviewers: List<String>,
+    @SerializedName("requested_reviewers") val requested_reviewers: List<Any>,
     @SerializedName("requested_teams") val requested_teams: List<String>,
     @SerializedName("labels") val labels: List<String>,
     @SerializedName("milestone") val milestone: String,
