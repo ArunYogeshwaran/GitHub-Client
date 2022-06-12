@@ -11,8 +11,8 @@ Repository ID and User ID**
 [<img align="right" src="assets/demo.gif" width="40%">]()
 **This demo features**
 
-- Gets the closed pull requests corresponding to a User ID and Repository ID specified in
-  BuildConfigField in build.gradle
+- Getting the closed pull requests corresponding to a User ID and Repository ID specified in the
+  BuildConfigField in build.gradle shown above
 - Shows empty state when there are no closed pull requests
 - Shows error state when pull requests couldn't be fetched due to some reason
 - Supports pull to refresh to update the list
