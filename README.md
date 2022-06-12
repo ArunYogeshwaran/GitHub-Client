@@ -1,10 +1,10 @@
 ## MVVM Demo using a GitHub API
 
-**Update the following buildconfig fields in [app/build.gradle](build.gradle) to customize the
+**Update the following buildconfig fields in [build.gradle](app/build.gradle) to customize the
 Repository ID and User ID**
 
-- buildConfigField "String", "USER_ID", '"<Your preferred User ID>"'
-- buildConfigField "String", "REPO_ID", '"<Your preferred Repo ID>"'
+- buildConfigField "String", "USER_ID", '"ArunYogeshwaran"'
+- buildConfigField "String", "REPO_ID", '"GitHub-Client"'
 
 ## Stacks
 
