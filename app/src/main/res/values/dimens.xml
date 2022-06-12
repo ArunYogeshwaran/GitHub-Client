@@ -7,4 +7,5 @@
     <dimen name="content_title_text_size">16sp</dimen>
     <dimen name="content_subtitle_text_size">14sp</dimen>
     <dimen name="drawable_end_padding">4dp</dimen>
+    <dimen name="error_state_drawable_size">120dp</dimen>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,7 +17,6 @@ import com.ayogeshwaran.githubclient.MainActivityViewModel
 import com.ayogeshwaran.githubclient.R
 import com.ayogeshwaran.githubclient.common.MarginItemDecoration
 import com.ayogeshwaran.githubclient.databinding.FragmentClosedPrBinding
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
@@ -60,28 +60,26 @@ class ClosedPrFragment : Fragment(), ClosedPrListAdapter.OnPrItemClickedListener
             when (state) {
                 is UiState.Success -> {
                     closedPrBinding.swipeRefresh.isRefreshing = false
+                    closedPrBinding.ivEmptyState.isVisible = false
+                    closedPrBinding.ivErrorState.isVisible = false
                     adapter.updateListData(state.data as List<UIClosedPullRequest>)
                 }
                 is UiState.Loading -> {
                     closedPrBinding.swipeRefresh.isRefreshing = true
+                    closedPrBinding.ivEmptyState.isVisible = false
+                    closedPrBinding.ivErrorState.isVisible = false
                 }
                 is UiState.Error -> {
                     closedPrBinding.swipeRefresh.isRefreshing = false
-                    Snackbar.make(
-                        closedPrBinding.root,
-                        getString(state.errorMessageId),
-                        Snackbar.LENGTH_LONG
-                    ).setAction(getString(R.string.retry)) {
-                        closedPrFragmentViewModel.getClosedPrs()
-                    }.show()
+                    closedPrBinding.rvClosedPr.isVisible = false
+                    closedPrBinding.ivEmptyState.isVisible = false
+                    closedPrBinding.ivErrorState.isVisible = true
                 }
                 is UiState.NoData -> {
                     closedPrBinding.swipeRefresh.isRefreshing = false
-                    Snackbar.make(
-                        closedPrBinding.root,
-                        getString(R.string.closed_pr_request_nodata),
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                    closedPrBinding.rvClosedPr.isVisible = false
+                    closedPrBinding.ivEmptyState.isVisible = true
+                    closedPrBinding.ivErrorState.isVisible = false
                 }
             }
         } ?: run {

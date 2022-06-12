@@ -3,8 +3,7 @@
     <string name="show_closed_pull_requests">Show Closed Pull Requests</string>
     <string name="pr_subtitle" translatable="false">%1$s \u2022 %2$s</string>
     <string name="closed_pull_requests">Closed Pull Requests</string>
-    <string name="loading">Loading</string>
-    <string name="closed_pr_request_failed">Error while fetching data.</string>
+    <string name="closed_pr_request_failed">Error while fetching data. Pull down to try again.</string>
     <string name="closed_pr_request_nodata">No closed pull requests.</string>
-    <string name="retry">Retry</string>
+    <string name="empty_state">Empty State</string>
 </resources>
