@@ -71,7 +71,7 @@ Repository ID and User ID**
 
 ## Error State
 
-[<img src="assets/error state.png">](https://madscorecard.withgoogle.com/scorecards/2872539885/)
+[<img src="assets/error state.png">]()
 <br/>
 <br/>
 <br/>
